@@ -1,0 +1,12 @@
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
+INSERT INTO clientes (nombre, apellido, email, create_at) VALUES ('Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-11-26');
