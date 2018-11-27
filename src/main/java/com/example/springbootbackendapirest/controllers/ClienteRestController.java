@@ -2,10 +2,8 @@ package com.example.springbootbackendapirest.controllers;
 
 import com.example.springbootbackendapirest.models.entity.Cliente;
 import com.example.springbootbackendapirest.models.services.IClienteService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,21 @@ public class ClienteRestController {
     @GetMapping("/clientes")
     public List<Cliente> index() {
         return clienteService.findAll();
+    }
+
+    @GetMapping("/clientes/{id}")
+    public Cliente show(@PathVariable Long id) {
+        return this.clienteService.findById(id);
+    }
+
+    @PostMapping("/clientes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente create(@RequestBody Cliente cliente) {
+        return clienteService.save(cliente);
+    }
+
+    @DeleteMapping("/clientes/{id}")
+    public void delete(@PathVariable Long id) {
+        clienteService.delete(id);
     }
 }
