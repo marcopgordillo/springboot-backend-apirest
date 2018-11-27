@@ -47,7 +47,6 @@ public class ClienteRestController {
         }
 
         return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
-        // return this.clienteService.findById(id);
     }
 
     @PostMapping("/clientes")
@@ -66,7 +65,6 @@ public class ClienteRestController {
         response.put("mensaje", "El cliente ha sido creado con éxito!");
         response.put("cliente", nuevoCliente);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-        //return clienteService.save(cliente);
     }
 
     @PutMapping("/clientes/{id}")
