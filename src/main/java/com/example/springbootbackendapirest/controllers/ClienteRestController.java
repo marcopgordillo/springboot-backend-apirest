@@ -34,7 +34,7 @@ public class ClienteRestController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            cliente = this.clienteService.findById(id);
+            cliente = clienteService.findById(id);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar la consulta en la base de datos!");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -51,9 +51,22 @@ public class ClienteRestController {
     }
 
     @PostMapping("/clientes")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody Cliente cliente) {
-        return clienteService.save(cliente);
+    public ResponseEntity<?> create(@RequestBody Cliente cliente) {
+        Cliente nuevoCliente;
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            nuevoCliente = clienteService.save(cliente);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al guardar en la base de datos!");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        response.put("mensaje", "El cliente ha sido creado con éxito!");
+        response.put("cliente", nuevoCliente);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        //return clienteService.save(cliente);
     }
 
     @PutMapping("/clientes/{id}")
