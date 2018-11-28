@@ -38,6 +38,8 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
+    private String foto;
+
     public Long getId() {
         return id;
     }
@@ -78,6 +80,14 @@ public class Cliente implements Serializable {
         this.createAt = createAt;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,13 +97,14 @@ public class Cliente implements Serializable {
                 Objects.equals(getNombre(), cliente.getNombre()) &&
                 Objects.equals(getApellido(), cliente.getApellido()) &&
                 Objects.equals(getEmail(), cliente.getEmail()) &&
-                Objects.equals(getCreateAt(), cliente.getCreateAt());
+                Objects.equals(getCreateAt(), cliente.getCreateAt()) &&
+                Objects.equals(getFoto(), cliente.getFoto());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt());
+        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt(), getFoto());
     }
 
     @Override
@@ -103,7 +114,8 @@ public class Cliente implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", email='" + email + '\'' +
-                ", createAt=" + createAt +
+                ", createAt=" + createAt + '\'' +
+                ", foto=" + foto +
                 '}';
     }
 }
