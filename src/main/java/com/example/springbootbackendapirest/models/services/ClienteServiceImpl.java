@@ -29,8 +29,6 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    @Cacheable("clientes")
-    @CacheEvict(key = "#clientes.id")
     @Transactional(readOnly = true)
     public Page<Cliente> findAll(Pageable pageable) {
       return this.clienteDao.findAll(pageable);
