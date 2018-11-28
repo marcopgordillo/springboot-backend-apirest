@@ -2,6 +2,8 @@ package com.example.springbootbackendapirest.controllers;
 
 import com.example.springbootbackendapirest.models.entity.Cliente;
 import com.example.springbootbackendapirest.models.services.IClienteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.dao.DataAccessException;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ClienteRestController {
+
+    private final Logger log = LoggerFactory.getLogger(ClienteRestController.class);
 
     private final IClienteService clienteService;
 
@@ -178,6 +182,7 @@ public class ClienteRestController {
         if (!archivo.isEmpty()) {
             String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
             Path rutaArchivo = Paths.get("uploads").resolve(nombreArchivo).toAbsolutePath();
+            log.info(rutaArchivo.toString());
 
             try {
                 Files.copy(archivo.getInputStream(), rutaArchivo);
@@ -203,6 +208,7 @@ public class ClienteRestController {
     @GetMapping("/uploads/img/{nombreFoto:.+}")
     public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
         Path rutaArchivo = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
+        log.info(rutaArchivo.toString());
         Resource recurso = null;
 
         try {
