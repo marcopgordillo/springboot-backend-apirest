@@ -19,7 +19,7 @@ public class Cliente implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Size(min = 4, max = 4)
+    @Size(min = 4, max = 12)
     @Column(nullable = false)
     private String nombre;
 
