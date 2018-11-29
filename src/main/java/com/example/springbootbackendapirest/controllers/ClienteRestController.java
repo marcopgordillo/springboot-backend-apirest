@@ -175,7 +175,7 @@ public class ClienteRestController {
     }
 
     @PostMapping("/clientes/upload")
-    public ResponseEntity<?> upload(@RequestParam("archivo")MultipartFile archivo, @RequestParam Long id) {
+    public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam Long id) {
         Map<String, Object> response = new HashMap<>();
         Cliente cliente = clienteService.findById(id);
 
