@@ -1,6 +1,7 @@
 package com.example.springbootbackendapirest.controllers;
 
 import com.example.springbootbackendapirest.models.entity.Cliente;
+import com.example.springbootbackendapirest.models.entity.Region;
 import com.example.springbootbackendapirest.models.services.IClienteService;
 import com.example.springbootbackendapirest.models.services.IUploadFileService;
 import org.springframework.core.io.Resource;
@@ -43,11 +44,11 @@ public class ClienteRestController {
         return clienteService.findAll();
     }
 
-  @GetMapping("/clientes/page/{page}")
-  public Page<Cliente> index(@PathVariable Integer page) {
-    Pageable pageable = PageRequest.of(page, 4);
-    return clienteService.findAll(pageable);
-  }
+    @GetMapping("/clientes/page/{page}")
+    public Page<Cliente> index(@PathVariable Integer page) {
+        Pageable pageable = PageRequest.of(page, 4);
+        return clienteService.findAll(pageable);
+    }
 
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
@@ -140,6 +141,7 @@ public class ClienteRestController {
             clienteActual.setNombre(cliente.getNombre());
             clienteActual.setEmail(cliente.getEmail());
             clienteActual.setCreateAt(cliente.getCreateAt());
+            clienteActual.setRegion(cliente.getRegion());
 
             clienteUpdated = clienteService.save(clienteActual);
         } catch (DataAccessException e) {
@@ -223,5 +225,10 @@ public class ClienteRestController {
         cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
 
         return new ResponseEntity<>(recurso, cabecera, HttpStatus.OK);
+    }
+
+    @GetMapping("/clientes/regiones")
+    public List<Region> listarRegiones() {
+        return clienteService.findAllRegiones();
     }
 }

@@ -42,6 +42,7 @@ public class Cliente implements Serializable {
 
     private String foto;
 
+    @NotNull(message = "La región no puede ser vacía")
     @ManyToOne(fetch = FetchType.LAZY) // carga peresoza, solo cuando se le llama carga los datos.
     @JoinColumn(name = "region_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Es necesario omitir estas propiedades ya que al estar utilizando el fetch tipo LAZY se genera un proxy en el campo region que podría lanzar un error, por tanto solo quedan las propiedades de la clase Region (id, nombre).

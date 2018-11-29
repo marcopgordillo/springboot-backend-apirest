@@ -13,5 +13,4 @@ public interface IClienteDao extends JpaRepository<Cliente, Long> {
 
     @Query("from Region") // Las consultas JPA se refieren a las clases no a la BD.
     List<Region> findAllRegiones();
-
 }
