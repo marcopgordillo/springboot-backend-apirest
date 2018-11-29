@@ -21,7 +21,6 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    @Cacheable(value = "clientes", key = "clientes.id")
     @Transactional(readOnly = true)
     public List<Cliente> findAll() {
         return (List<Cliente>) this.clienteDao.findAll();
