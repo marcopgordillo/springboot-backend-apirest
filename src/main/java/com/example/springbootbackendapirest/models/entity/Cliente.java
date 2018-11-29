@@ -1,5 +1,7 @@
 package com.example.springbootbackendapirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -39,6 +41,11 @@ public class Cliente implements Serializable {
     private Date createAt;
 
     private String foto;
+
+    @ManyToOne(fetch = FetchType.LAZY) // carga peresoza, solo cuando se le llama carga los datos.
+    @JoinColumn(name = "region_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Es necesario omitir estas propiedades ya que al estar utilizando el fetch tipo LAZY se genera un proxy en el campo region que podría lanzar un error, por tanto solo quedan las propiedades de la clase Region (id, nombre).
+    private Region region;
 
     public Long getId() {
         return id;
@@ -88,6 +95,14 @@ public class Cliente implements Serializable {
         this.foto = foto;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,13 +113,14 @@ public class Cliente implements Serializable {
                 Objects.equals(getApellido(), cliente.getApellido()) &&
                 Objects.equals(getEmail(), cliente.getEmail()) &&
                 Objects.equals(getCreateAt(), cliente.getCreateAt()) &&
-                Objects.equals(getFoto(), cliente.getFoto());
+                Objects.equals(getFoto(), cliente.getFoto()) &&
+                Objects.equals(getRegion(), cliente.getRegion());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt(), getFoto());
+        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt(), getFoto(), getRegion());
     }
 
     @Override
@@ -115,7 +131,8 @@ public class Cliente implements Serializable {
                 ", apellido='" + apellido + '\'' +
                 ", email='" + email + '\'' +
                 ", createAt=" + createAt + '\'' +
-                ", foto=" + foto +
+                ", foto=" + foto + '\'' +
+                ", region=" + region +
                 '}';
     }
 }
