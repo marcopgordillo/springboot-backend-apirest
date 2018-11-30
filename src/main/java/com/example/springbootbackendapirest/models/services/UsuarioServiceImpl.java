@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 
-  private final Logger log = LoggerFactory.getLogger(UsuarioService.class);
+  private final Logger log = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
   private final IUsuarioDao usuarioDao;
 
-  public UsuarioService(IUsuarioDao usuarioDao) {
+  public UsuarioServiceImpl(IUsuarioDao usuarioDao) {
     this.usuarioDao = usuarioDao;
   }
 
@@ -45,5 +45,10 @@ public class UsuarioService implements UserDetailsService {
             .collect(Collectors.toList());
 
     return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+  }
+
+  @Override
+  public Usuario findByUsername(String username) {
+    return usuarioDao.findByUsername(username);
   }
 }
