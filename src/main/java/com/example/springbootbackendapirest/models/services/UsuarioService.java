@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioService implements UserDetailsService {
 
-  private final Logger log = LoggerFactory.getLogger(UploadFileServiceImpl.class);
+  private final Logger log = LoggerFactory.getLogger(UsuarioService.class);
 
   private final IUsuarioDao usuarioDao;
 
