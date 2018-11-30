@@ -13,9 +13,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
   @Override
   public void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/clientes", "/api/clientes/page/**", "/api/uploads/img/**").permitAll() // esto es público
-            .antMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER", "ADMIN") // en este caso no es necesario usar ROLE_USER ya que por detrás spring-security ya lo hace.
+            /*.antMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER", "ADMIN") // en este caso no es necesario usar ROLE_USER ya que por detrás spring-security ya lo hace.
             .antMatchers(HttpMethod.POST, "/api/clientes/upload").hasAnyRole("USER", "ADMIN")
-            .antMatchers(HttpMethod.POST, "/api/clientes").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/api/clientes").hasRole("ADMIN")*/
             .antMatchers("/api/clientes/**").hasRole("ADMIN") // las rutas se las realiza desde lo general hacia lo más genérico.
             .anyRequest().authenticated();
   }
