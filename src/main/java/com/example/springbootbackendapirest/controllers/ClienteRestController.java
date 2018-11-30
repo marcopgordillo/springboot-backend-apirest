@@ -4,6 +4,9 @@ import com.example.springbootbackendapirest.models.entity.Cliente;
 import com.example.springbootbackendapirest.models.entity.Region;
 import com.example.springbootbackendapirest.models.services.IClienteService;
 import com.example.springbootbackendapirest.models.services.IUploadFileService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -51,6 +54,7 @@ public class ClienteRestController {
     }
 
     @GetMapping("/clientes/{id}")
+    @Cacheable(value = "clientes", key = "#id")
     public ResponseEntity<?> show(@PathVariable Long id) {
 
         Cliente cliente;
@@ -107,6 +111,7 @@ public class ClienteRestController {
     }
 
     @PutMapping("/clientes/{id}")
+    @CachePut(value = "clientes", key = "#id")
     public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
         Cliente clienteActual;
         Cliente clienteUpdated;
@@ -156,6 +161,7 @@ public class ClienteRestController {
     }
 
     @DeleteMapping("/clientes/{id}")
+    @CacheEvict(value = "clientes", key = "#id")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
 
