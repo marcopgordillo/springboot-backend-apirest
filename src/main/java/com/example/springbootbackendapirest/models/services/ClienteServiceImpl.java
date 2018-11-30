@@ -2,6 +2,10 @@ package com.example.springbootbackendapirest.models.services;
 
 import com.example.springbootbackendapirest.models.dao.IClienteDao;
 import com.example.springbootbackendapirest.models.entity.Cliente;
+import com.example.springbootbackendapirest.models.entity.Region;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +28,12 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<Cliente> findAll(Pageable pageable) {
+      return this.clienteDao.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Cliente findById(Long id) {
         return clienteDao.findById(id).orElse(null);
     }
@@ -38,5 +48,12 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional
     public void delete(Long id) {
         clienteDao.deleteById(id);
+    }
+
+    @Override
+    @Cacheable("regiones")
+    @Transactional(readOnly = true)
+    public List<Region> findAllRegiones() {
+        return clienteDao.findAllRegiones();
     }
 }

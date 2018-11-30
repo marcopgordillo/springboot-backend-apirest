@@ -1,6 +1,12 @@
 package com.example.springbootbackendapirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -15,23 +21,32 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "no puede estar vacío.")
+    @Size(min = 4, max = 12, message = "el tamaño tiene que estar entre 4 y 12.")
     @Column(nullable = false)
     private String nombre;
 
+    @NotEmpty(message = "no puede estar vacío.")
     @Column(nullable = false)
     private String apellido;
 
+    @NotEmpty(message = "no puede estar vacío.")
+    @Email(message = "no es una dirección de correo bien formada.")
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotNull(message = "no puede estar vacío.")
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
-    @PrePersist
-    public void prePersist() {
-        createAt = new Date();
-    }
+    private String foto;
+
+    @NotNull(message = "no puede estar vacío")
+    @ManyToOne(fetch = FetchType.LAZY) // carga peresoza, solo cuando se le llama carga los datos.
+    @JoinColumn(name = "region_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Es necesario omitir estas propiedades ya que al estar utilizando el fetch tipo LAZY se genera un proxy en el campo region que podría lanzar un error, por tanto solo quedan las propiedades de la clase Region (id, nombre).
+    private Region region;
 
     public Long getId() {
         return id;
@@ -73,6 +88,22 @@ public class Cliente implements Serializable {
         this.createAt = createAt;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,13 +113,15 @@ public class Cliente implements Serializable {
                 Objects.equals(getNombre(), cliente.getNombre()) &&
                 Objects.equals(getApellido(), cliente.getApellido()) &&
                 Objects.equals(getEmail(), cliente.getEmail()) &&
-                Objects.equals(getCreateAt(), cliente.getCreateAt());
+                Objects.equals(getCreateAt(), cliente.getCreateAt()) &&
+                Objects.equals(getFoto(), cliente.getFoto()) &&
+                Objects.equals(getRegion(), cliente.getRegion());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt());
+        return Objects.hash(getId(), getNombre(), getApellido(), getEmail(), getCreateAt(), getFoto(), getRegion());
     }
 
     @Override
@@ -98,7 +131,9 @@ public class Cliente implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", email='" + email + '\'' +
-                ", createAt=" + createAt +
+                ", createAt=" + createAt + '\'' +
+                ", foto=" + foto + '\'' +
+                ", region=" + region +
                 '}';
     }
 }
