@@ -23,6 +23,12 @@ public class Usuario implements Serializable {
 
   private Boolean enabled;
 
+  private String nombre;
+  private String apellido;
+
+  @Column(unique = true)
+  private String email;
+
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
   private List<Role> roles;
@@ -67,6 +73,30 @@ public class Usuario implements Serializable {
     this.roles = roles;
   }
 
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public String getApellido() {
+    return apellido;
+  }
+
+  public void setApellido(String apellido) {
+    this.apellido = apellido;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -76,13 +106,16 @@ public class Usuario implements Serializable {
             Objects.equals(getUsername(), usuario.getUsername()) &&
             Objects.equals(getPassword(), usuario.getPassword()) &&
             Objects.equals(getEnabled(), usuario.getEnabled()) &&
-            Objects.equals(getRoles(), usuario.getRoles());
+            Objects.equals(getRoles(), usuario.getRoles()) &&
+            Objects.equals(getNombre(), usuario.getNombre()) &&
+            Objects.equals(getApellido(), usuario.getApellido()) &&
+            Objects.equals(getEmail(), usuario.getEmail());
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(getId(), getUsername(), getPassword(), getEnabled(), getRoles());
+    return Objects.hash(getId(), getUsername(), getPassword(), getEnabled(), getRoles(), getNombre(), getApellido(), getEmail());
   }
 
   @Override
@@ -91,7 +124,10 @@ public class Usuario implements Serializable {
             "id=" + id +
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
-            ", enabled=" + enabled +
+            ", enabled=" + enabled + '\'' +
+            ", nombre=" + nombre + '\'' +
+            ", apellido=" + apellido + '\'' +
+            ", email=" + email + '\'' +
             ", roles=" + roles +
             '}';
   }
