@@ -75,7 +75,7 @@ public class ClienteRestController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
