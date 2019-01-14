@@ -2,7 +2,10 @@ package com.example.springbootbackendapirest.models.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "facturas")
@@ -25,6 +28,14 @@ public class Factura implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "cliente_id") // es el estándar así que no es necesario en este caso
     private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id") // es necesario ya que no hay campo factura en ItemFactura
+    private List<ItemFactura> items;
+
+    public Factura() {
+        this.items = new ArrayList<>();
+    }
 
     @PrePersist
     public void prePersist() {
@@ -71,26 +82,28 @@ public class Factura implements Serializable {
         this.cliente = cliente;
     }
 
+    public List<ItemFactura> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemFactura> items) {
+        this.items = items;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Factura factura = (Factura) o;
-
-        if (!getId().equals(factura.getId())) return false;
-        if (!getDescripcion().equals(factura.getDescripcion())) return false;
-        if (!getObservacion().equals(factura.getObservacion())) return false;
-        return getCreateAt().equals(factura.getCreateAt());
+        return getId().equals(factura.getId()) &&
+                getDescripcion().equals(factura.getDescripcion()) &&
+                getObservacion().equals(factura.getObservacion()) &&
+                getCreateAt().equals(factura.getCreateAt());
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getDescripcion().hashCode();
-        result = 31 * result + getObservacion().hashCode();
-        result = 31 * result + getCreateAt().hashCode();
-        return result;
+        return Objects.hash(getId(), getDescripcion(), getObservacion(), getCreateAt());
     }
 
     @Override

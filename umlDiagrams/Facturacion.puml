@@ -13,21 +13,24 @@
 
 +class Factura <<Serializable>> {
     -- private data --
+    -id: Long
     -folio: Integer
     -descripcion: String
     -observacion: String
     -fecha: Date
+    -cliente: Cliente
     -- public methods --
     +calcularTotal(): Long
     .. Getter ..
     .. Setter ..
 }
 
-+class LineaFactura <<Serializable>> {
++class ItemFactura <<Serializable>> {
     -- private data --
+    -id: Long
     -cantidad: Integer
     -- public methods --
-    +calcularImporte(): Long
+    +calcularImporte(): Double
     .. Getter ..
     .. Setter ..
 }
@@ -40,7 +43,7 @@
 }
 
 Cliente o-- Factura
-Factura *-- LineaFactura
-LineaFactura --> Producto
+Factura *-- ItemFactura
+ItemFactura --> Producto
 
 @enduml
