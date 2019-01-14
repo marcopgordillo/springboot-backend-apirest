@@ -19,6 +19,7 @@
     -observacion: String
     -fecha: Date
     -cliente: Cliente
+    -items: List<ItemFactura>
     -- public methods --
     +calcularTotal(): Long
     .. Getter ..
@@ -29,15 +30,16 @@
     -- private data --
     -id: Long
     -cantidad: Integer
+    -producto: Producto
     -- public methods --
-    +calcularImporte(): Double
+    +getImporte(): Double
     .. Getter ..
     .. Setter ..
 }
 
 +class Producto <<Serializable>> {
     -nombre: String
-    -precio: Long
+    -precio: Double
     .. Getter ..
     .. Setter ..
 }

@@ -14,7 +14,11 @@ public class ItemFactura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer catidad;
+    private Integer cantidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "producto_id") // Opcional ya que es el dueño de la relación
+    private Producto producto;
 
     public Long getId() {
         return id;
@@ -24,16 +28,24 @@ public class ItemFactura implements Serializable {
         this.id = id;
     }
 
-    public Integer getCatidad() {
-        return catidad;
+    public Integer getCantidad() {
+        return cantidad;
     }
 
-    public void setCatidad(Integer catidad) {
-        this.catidad = catidad;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public Double calcularImporte() {
-        return catidad.doubleValue();
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Double getImporte() {
+        return cantidad * producto.getPrecio();
     }
 
     @Override
@@ -42,11 +54,19 @@ public class ItemFactura implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         ItemFactura that = (ItemFactura) o;
         return getId().equals(that.getId()) &&
-                getCatidad().equals(that.getCatidad());
+                getCantidad().equals(that.getCantidad());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCatidad());
+        return Objects.hash(getId(), getCantidad());
+    }
+
+    @Override
+    public String toString() {
+        return "ItemFactura{" +
+                "id=" + id +
+                ", cantidad=" + cantidad +
+                '}';
     }
 }

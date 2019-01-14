@@ -42,6 +42,15 @@ public class Factura implements Serializable {
         this.createAt = new Date();
     }
 
+    public Double getTotal() {
+        Double total = 0.00;
+        for (ItemFactura item : items) {
+            total += item.getImporte();
+        }
+
+        return total;
+    }
+
     public Long getId() {
         return id;
     }
