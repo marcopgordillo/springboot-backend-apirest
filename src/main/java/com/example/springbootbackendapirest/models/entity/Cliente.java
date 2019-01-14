@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -47,6 +49,13 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "region_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Es necesario omitir estas propiedades ya que al estar utilizando el fetch tipo LAZY se genera un proxy en el campo region que podría lanzar un error, por tanto solo quedan las propiedades de la clase Region (id, nombre).
     private Region region;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Factura> facturas;
+
+    public Cliente() {
+        this.facturas = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -102,6 +111,14 @@ public class Cliente implements Serializable {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
     }
 
     @Override
