@@ -11,6 +11,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "facturas")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "factura_total",
+                                    procedureName = "factura_total",
+                                    parameters = {
+                                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "factura_id", type = Long.class)
+                                    })
+})
 public class Factura implements Serializable {
 
     private static final long serialVersionUID = 1L;
