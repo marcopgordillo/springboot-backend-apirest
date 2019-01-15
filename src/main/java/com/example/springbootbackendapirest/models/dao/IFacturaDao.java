@@ -5,9 +5,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 public interface IFacturaDao extends CrudRepository<Factura, Long> {
     @Procedure(name = "factura_total")
-    Optional<Factura> findFacturaWithTotalById(@Param("factura_id") Long id);
+    Double getTotalWithTotalById(@Param("factura_id") Long id);
 }

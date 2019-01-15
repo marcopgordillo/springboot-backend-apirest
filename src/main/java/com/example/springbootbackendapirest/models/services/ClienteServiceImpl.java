@@ -64,7 +64,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     @Transactional(readOnly = true)
     public Factura findFacturaById(Long id) {
-        return facturaDao.findFacturaWithTotalById(id).orElse(null);
+        return facturaDao.findById(id).orElse(null);
     }
 
     @Override
@@ -77,5 +77,10 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional
     public void deleteFacturaById(Long id) {
         facturaDao.deleteById(id);
+    }
+
+    @Override
+    public Double getTotalProcedure(Long id) {
+        return facturaDao.getTotalWithTotalById(id);
     }
 }
