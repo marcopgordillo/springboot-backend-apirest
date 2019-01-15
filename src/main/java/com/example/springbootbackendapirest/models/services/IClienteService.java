@@ -1,6 +1,7 @@
 package com.example.springbootbackendapirest.models.services;
 
 import com.example.springbootbackendapirest.models.entity.Cliente;
+import com.example.springbootbackendapirest.models.entity.Factura;
 import com.example.springbootbackendapirest.models.entity.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,10 @@ public interface IClienteService {
     void delete(Long id);
 
     List<Region> findAllRegiones();
+
+    Factura findFacturaById(Long id);
+
+    Factura saveFactura(Factura factura);
+
+    void deleteFacturaById(Long id);
 }

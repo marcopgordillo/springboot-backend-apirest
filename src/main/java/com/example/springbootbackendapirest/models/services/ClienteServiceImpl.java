@@ -1,7 +1,9 @@
 package com.example.springbootbackendapirest.models.services;
 
 import com.example.springbootbackendapirest.models.dao.IClienteDao;
+import com.example.springbootbackendapirest.models.dao.IFacturaDao;
 import com.example.springbootbackendapirest.models.entity.Cliente;
+import com.example.springbootbackendapirest.models.entity.Factura;
 import com.example.springbootbackendapirest.models.entity.Region;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -15,9 +17,11 @@ import java.util.List;
 public class ClienteServiceImpl implements IClienteService {
 
     private final IClienteDao clienteDao;
+    private final IFacturaDao facturaDao;
 
-    public ClienteServiceImpl(IClienteDao clienteDao) {
+    public ClienteServiceImpl(IClienteDao clienteDao, IFacturaDao facturaDao) {
         this.clienteDao = clienteDao;
+        this.facturaDao = facturaDao;
     }
 
     @Override
@@ -55,5 +59,23 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional(readOnly = true)
     public List<Region> findAllRegiones() {
         return clienteDao.findAllRegiones();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Factura findFacturaById(Long id) {
+        return facturaDao.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Factura saveFactura(Factura factura) {
+        return facturaDao.save(factura);
+    }
+
+    @Override
+    @Transactional
+    public void deleteFacturaById(Long id) {
+        facturaDao.deleteById(id);
     }
 }
