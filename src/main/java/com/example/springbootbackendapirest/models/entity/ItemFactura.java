@@ -1,5 +1,7 @@
 package com.example.springbootbackendapirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,6 +18,7 @@ public class ItemFactura implements Serializable {
 
     private Integer cantidad;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     // @JoinColumn(name = "producto_id") // Opcional ya que es el dueño de la relación
     private Producto producto;

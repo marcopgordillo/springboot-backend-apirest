@@ -50,6 +50,7 @@ public class Cliente implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Es necesario omitir estas propiedades ya que al estar utilizando el fetch tipo LAZY se genera un proxy en el campo region que podría lanzar un error, por tanto solo quedan las propiedades de la clase Region (id, nombre).
     private Region region;
 
+    @JsonIgnoreProperties({"cliente", "hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL) // Relación OneToMany Bidireccional
     private List<Factura> facturas;
 
