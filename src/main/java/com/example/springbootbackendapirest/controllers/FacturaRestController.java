@@ -19,6 +19,7 @@ public class FacturaRestController {
     @GetMapping("/facturas/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Factura show(@PathVariable Long id) {
+        System.out.println(clienteService.getTotalProcedure(id));
         return clienteService.findFacturaById(id);
     }
 }
