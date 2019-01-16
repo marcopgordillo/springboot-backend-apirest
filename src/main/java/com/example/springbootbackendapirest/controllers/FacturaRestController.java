@@ -19,7 +19,12 @@ public class FacturaRestController {
     @GetMapping("/facturas/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Factura show(@PathVariable Long id) {
-        System.out.println(clienteService.getTotalProcedure(id));
         return clienteService.findFacturaById(id);
+    }
+
+    @DeleteMapping("/facturas/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        clienteService.deleteFacturaById(id);
     }
 }

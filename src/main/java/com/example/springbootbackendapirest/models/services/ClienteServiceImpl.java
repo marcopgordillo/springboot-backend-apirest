@@ -78,9 +78,4 @@ public class ClienteServiceImpl implements IClienteService {
     public void deleteFacturaById(Long id) {
         facturaDao.deleteById(id);
     }
-
-    @Override
-    public Double getTotalProcedure(Long id) {
-        return facturaDao.getTotalWithTotalById(id);
-    }
 }

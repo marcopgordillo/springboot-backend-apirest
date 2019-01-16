@@ -27,6 +27,4 @@ public interface IClienteService {
     Factura saveFactura(Factura factura);
 
     void deleteFacturaById(Long id);
-
-    Double getTotalProcedure(Long id);
 }
