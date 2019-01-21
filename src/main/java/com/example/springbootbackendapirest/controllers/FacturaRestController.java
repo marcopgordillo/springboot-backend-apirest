@@ -1,9 +1,12 @@
 package com.example.springbootbackendapirest.controllers;
 
 import com.example.springbootbackendapirest.models.entity.Factura;
+import com.example.springbootbackendapirest.models.entity.Producto;
 import com.example.springbootbackendapirest.models.services.IClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -26,5 +29,11 @@ public class FacturaRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         clienteService.deleteFacturaById(id);
+    }
+
+    @GetMapping("/facturas/filtrar-productos/{term}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Producto> filtrarProductos(@PathVariable String term) {
+        return clienteService.findProductoByNombre(term);
     }
 }
