@@ -24,8 +24,8 @@ INSERT INTO clientes (region_id, nombre, apellido, email, create_at) VALUES(7, '
 
 /* Populate tabla usuarios y roles */
 
-INSERT INTO usuarios (username, password, enabled, nombre, apellido, email) VALUES ('andres', '$2a$10$bPtp8sydJIRbbLgvQ/c8X.roczfWWE0A2OCVh1di3Xn5GWLgTxumq', 1, 'Andrés', 'Guzman', 'profesor@bolsadeideas.com');
-INSERT INTO usuarios (username, password, enabled, nombre, apellido, email) VALUES ('admin', '$2a$10$4jfNkOxNhLST4817QY0avOK9eUaWG.9EvUW6Y0V0HWuTAe3FVDEkq', 1, 'John', 'Doe', 'john.doe@bolsadeideas.com');
+INSERT INTO usuarios (username, password, enabled, nombre, apellido, email) VALUES ('andres', '$2a$10$bPtp8sydJIRbbLgvQ/c8X.roczfWWE0A2OCVh1di3Xn5GWLgTxumq', true, 'Andrés', 'Guzman', 'profesor@bolsadeideas.com');
+INSERT INTO usuarios (username, password, enabled, nombre, apellido, email) VALUES ('admin', '$2a$10$4jfNkOxNhLST4817QY0avOK9eUaWG.9EvUW6Y0V0HWuTAe3FVDEkq', true, 'John', 'Doe', 'john.doe@bolsadeideas.com');
 
 INSERT INTO roles (nombre) VALUES ('ROLE_USER');
 INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
