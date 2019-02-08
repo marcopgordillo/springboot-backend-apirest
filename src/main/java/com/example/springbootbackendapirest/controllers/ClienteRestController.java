@@ -233,8 +233,6 @@ public class ClienteRestController {
 
         HttpHeaders cabecera = new HttpHeaders();
         cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
-        System.out.println("Imprime recurso: " + recurso);
-        System.out.println("Imprime filename: " + recurso.getFilename());
 
         return new ResponseEntity<>(recurso, cabecera, HttpStatus.OK);
     }
