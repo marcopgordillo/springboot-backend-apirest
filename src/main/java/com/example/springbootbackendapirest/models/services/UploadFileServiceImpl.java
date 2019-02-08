@@ -38,6 +38,8 @@ public class UploadFileServiceImpl implements IUploadFileService {
             log.error("No se pudo cargar la imagen: " + nombreFoto);
         }
 
+
+
         return recurso;
     }
 

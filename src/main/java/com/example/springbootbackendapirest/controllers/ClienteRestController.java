@@ -4,6 +4,8 @@ import com.example.springbootbackendapirest.models.entity.Cliente;
 import com.example.springbootbackendapirest.models.entity.Region;
 import com.example.springbootbackendapirest.models.services.IClienteService;
 import com.example.springbootbackendapirest.models.services.IUploadFileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ClienteRestController {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final IClienteService clienteService;
     private final IUploadFileService uploadFileService;
@@ -229,6 +233,8 @@ public class ClienteRestController {
 
         HttpHeaders cabecera = new HttpHeaders();
         cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+        log.info("Imprime recurso: " + recurso);
+        log.info("Imprime filename: " + recurso.getFilename());
 
         return new ResponseEntity<>(recurso, cabecera, HttpStatus.OK);
     }
